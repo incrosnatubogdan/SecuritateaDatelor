@@ -2,41 +2,23 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Counter {
+	
+	public static void main(String[] args) throws Exception {
 
-	public static void main(String[] args) throws IOException{
-		
-		Scanner input = new Scanner(System.in);
-
-		System.out.print("Nume Fisier: ");
-		String fileName = input.nextLine();
-
-		File file = new File(fileName + ".txt");
-		
-		if(!file.exists()){
-			System.out.println("Fisierul " + fileName + ".txt nu exista.");
-			System.exit(0);
-		}
-		Scanner fileInput = new Scanner(file);
-
-		System.out.println("Caracter: ");
-		String charInput = input.nextLine();
-		char character = charInput.charAt(0);
-		
-		String line; 
-		
-		int count = 0;
-		
-		while(fileInput.hasNext()){
-			line = fileInput.nextLine();
-			for(int j=0; j<line.length(); j++){
-				if(line.charAt(j)==character){
-					count += 1;
-				}
-			}
-		}
-		
-		System.out.println("Caracterul " + character + " apare de " + count + " ori.");
-		
-		fileInput.close();
+		 int[] array = new int[26];
+	        BufferedReader br = new BufferedReader(new FileReader("test.txt"));
+	        int ch;
+	        while((ch = br.read()) != -1) {
+	            if (ch > 64 && ch < 97) 
+	                ch += 32; 
+	            if(-1 < ch-97 && ch-97 < 26)
+	                array[ch-97] += 1;
+	        }
+	        br.close();
+	        int i = 0;
+	        for (char chr = 'a'; chr <= 'z'; chr++) {
+	            System.out.printf("%s --> %d\n", chr, array[i]);
+	            i++;
+	        }
 	}
 }
